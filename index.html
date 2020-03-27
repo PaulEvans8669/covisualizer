@@ -159,10 +159,10 @@
       let dates = [];
       console.log(data);
       for(const d in data){
-        console.log("testing " + d[0]);
-        if(d[0].endsWith("c")){
-          console.log("adding "+ d[0]);
-          dates.push(d[0]);
+        console.log("testing " + d);
+        if(d.endsWith("c")){
+          console.log("adding "+ d);
+          dates.push(d);
         }
       }
       console.log("dates : " + dates);
