@@ -146,6 +146,7 @@
                 let id_tofind = 'date'+dates[i];
                 let d = document.getElementById(id_tofind);
                 if(d) {
+                    console.log("adding event to " + id_tofind);
                     d.addEventListener('click', settime(globe, i), false);
                 }
             }
