@@ -134,22 +134,21 @@
   <script type="text/javascript" src="third-party/Tween.js"></script>
   <script type="text/javascript" src="globe.js"></script>
   <script type="text/javascript">
-    async function getJSONData(){
+    function getJSONData(){
       let data;
       var xhr;
       xhr = new XMLHttpRequest();
-      await xhr.open('GET', 'data.json', true);
+      xhr.open('GET', 'data.json', false);
       xhr.onreadystatechange = function(e) {
       console.log(xhr);
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
               data = JSON.parse(xhr.responseText);
-              console.log(data);
-              return data;
           }
         }
       };
       xhr.send(null);
+      return data;
     }
 
     if(!Detector.webgl){
