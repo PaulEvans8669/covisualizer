@@ -118,9 +118,36 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
   <script src="calendar/js/jquery.simple-calendar.js"></script>
   <script>
+      function getJSONData(){
+      let data;
+      var xhr;
+      xhr = new XMLHttpRequest();
+      xhr.open('GET', 'data.json', false);
+      xhr.onreadystatechange = function(e) {
+        console.log(xhr);
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            data = JSON.parse(xhr.responseText);
+          }
+        }
+      };
+      xhr.send(null);
+      return data;
+    }
+    let data = getJSONData();
+      for(const d in data){
+        if(data[d][0].endsWith("c")){
+          dates.push(data[d][0]);
+        }
+      }
+
+    let dates = [];
+    let globe;
     $(document).ready(function(){
       $("#cal-container").simpleCalendar({
-        fixedStartDay: false
+        fixedStartDay: false,
+        dates: dates,
+        globe: globe
       });
     });
   </script>
@@ -135,25 +162,8 @@
   <script type="text/javascript" src="globe.js"></script>
   <script type="text/javascript">
 
-    let dates = [];
-    let globe;
 
-    function getJSONData(){
-      let data;
-      var xhr;
-      xhr = new XMLHttpRequest();
-      xhr.open('GET', 'data.json', false);
-      xhr.onreadystatechange = function(e) {
-      console.log(xhr);
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-              data = JSON.parse(xhr.responseText);
-          }
-        }
-      };
-      xhr.send(null);
-      return data;
-    }
+
 
     function settime(globe, t){
       console.log("settime");
@@ -180,13 +190,6 @@
       if(!Detector.webgl){
         Detector.addGetWebGLMessage();
       } else {
-
-        let data = getJSONData();
-        for(const d in data){
-          if(data[d][0].endsWith("c")){
-            dates.push(data[d][0]);
-          }
-        }
 
         let container = document.getElementById('container');
         globe = new DAT.Globe(container);

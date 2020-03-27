@@ -15,6 +15,8 @@
             displayEvent: true, // display existing event
             fixedStartDay: true, // Week begin always by monday
             event: [], //List of event
+            globe: null,
+            dates: null,
             insertCallback : function(){} // Callback when an event is added to the calendar
         };
 
@@ -27,6 +29,7 @@
         this.currentDate = new Date();
         this.currentDate.setFullYear(2020,0,22);
         this.init();
+        return this;
     }
 
     // Avoid Plugin.prototype conflicts
@@ -138,6 +141,14 @@
                 plugin.buildCalendar(plugin.currentDate, $('.calendar'));
                 plugin.updateHeader(plugin.currentDate, $('.calendar header'));
             });
+
+            for(let i = 0; i<dates.length; i++) {
+                let id_tofind = 'date'+dates[i];
+                let d = document.getElementById(id_tofind);
+                if(d) {
+                    d.addEventListener('click', settime(globe, i), false);
+                }
+            }
         },
         //Small effect to fillup a container
         fillUp : function (elem,x,y){
