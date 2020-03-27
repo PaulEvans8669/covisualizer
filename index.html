@@ -166,14 +166,6 @@
           dates.push(data[d][0]);
         }
       }
-
-    $(document).ready(function(){
-      $("#cal-container").simpleCalendar({
-        fixedStartDay: false,
-        dates: dates,
-        globe: globe
-      });
-    });
   </script>
 
   <div id="title">
@@ -199,19 +191,14 @@
         let container = document.getElementById('container');
         globe = new DAT.Globe(container);
 
-        let i, tweens = [];
-
-        for(let i = 0; i<dates.length; i++) {
-          let id_tofind = 'date'+dates[i];
-          let d = document.getElementById(id_tofind);
-          if(d) {
-            console.log("[index] adding event to " + id_tofind);
-            d.addEventListener('click', settime(globe, i), false);
-          }
-        }
-
         TWEEN.start();
 
+
+        $("#cal-container").simpleCalendar({
+          fixedStartDay: false,
+          dates: dates,
+          globe: globe
+        });
 
         window.data = data;
         for (i=0;i<data.length/2;i++) { //2 pour ne prendre que les cases et non pas les deaths
