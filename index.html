@@ -171,8 +171,7 @@
       $("#cal-container").simpleCalendar({
         fixedStartDay: false,
         dates: dates,
-        globe: globe,
-        event_listener: settime
+        globe: globe
       });
     });
   </script>
@@ -200,7 +199,6 @@
         let container = document.getElementById('container');
         globe = new DAT.Globe(container);
 
-        console.log(globe);
         let i, tweens = [];
 
         for(let i = 0; i<dates.length; i++) {

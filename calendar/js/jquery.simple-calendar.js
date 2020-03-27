@@ -1,5 +1,26 @@
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
+function settime(globe, t){
+    console.log("settime");
+    new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+    let id = 'date'+dates[t];
+    let d = document.getElementById(id);
+    if(!d){
+        console.log("didn't find " + id);
+        return;
+    }else{
+        console.log("found " + id);
+    }
+    if (d.getAttribute('class') === 'date active today todate') {
+        return;
+    }
+    let dd = document.getElementsByClassName('date');
+    for(i=0; i<dd.length; i++) {
+        dd[i].setAttribute('class','date');
+    }
+    d.setAttribute('class', 'date active today todate');
+}
+
 ;(function ( $, window, document, undefined ) {
 
 	"use strict";
@@ -148,7 +169,7 @@
                 let d = document.getElementById(id_tofind);
                 if(d) {
                     console.log("adding event to " + id_tofind);
-                    d.addEventListener('click', this.event_listener(globe, i), false);
+                    d.addEventListener('click', settime(globe, i), false);
                 }
             }
         },
