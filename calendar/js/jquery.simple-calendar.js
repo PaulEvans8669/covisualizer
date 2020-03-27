@@ -12,7 +12,14 @@ function settime(globe, t){
     }
     let dd = document.getElementsByClassName('date');
     for(i=0; i<dd.length; i++) {
-        dd[i].setAttribute('class','date');
+        date_month = dd[i].id.replace("date","").replace("\/.*","");
+        selected_month = id.replace("date","").replace("\/.*","");
+        console.log(date_month + "=?" +selected_month);
+        if(date_month === selected_month) {
+            dd[i].setAttribute('class', 'date');
+        }else{
+            dd[i].setAttribute('class', 'date wrong-month');
+        }
     }
     d.setAttribute('class', 'date active today todate');
 }
@@ -115,7 +122,7 @@ function settime(globe, t){
                 for(var i = 0; i<7; i++) {
                     let id = "date"+(day.getMonth()+1)+"/"+day.getDate()+"/"+day.getFullYear()%100+"_c";
                     var td = $('<td><a href="#" class="date" id="'+id+'">'+day.getDate()+'</a></td>');
-                    //if day is not in this month
+                    //if today is this day
                     if(day.getMonth() !== fromDate.getMonth()){
                        td.find(".date").addClass("wrong-month");
                     }
