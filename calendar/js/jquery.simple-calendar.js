@@ -1,9 +1,9 @@
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
 function settime(globe, t){
-    console.log("settime");
     new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
     let id = 'date'+dates[t];
+    console.log("settime " + id);
     let d = document.getElementById(id);
     if(!d){
         console.log("didn't find " + id);
