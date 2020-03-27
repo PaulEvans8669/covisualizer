@@ -133,83 +133,85 @@
   <script type="text/javascript" src="third-party/three.min.js"></script>
   <script type="text/javascript" src="third-party/Tween.js"></script>
   <script type="text/javascript" src="globe.js"></script>
-  <script type="text/javascript">
-    function getJSONData(){
-      let data;
-      var xhr;
-      xhr = new XMLHttpRequest();
-      xhr.open('GET', 'data.json', false);
-      xhr.onreadystatechange = function(e) {
-      console.log(xhr);
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-              data = JSON.parse(xhr.responseText);
-          }
-        }
-      };
-      xhr.send(null);
-      return data;
-    }
-
-    if(!Detector.webgl){
-      Detector.addGetWebGLMessage();
-    } else {
-
-      let data = getJSONData();
-      let dates = [];
-      for(const d in data){
-        if(data[d][0].endsWith("c")){
-          dates.push(data[d][0]);
-        }
-      }
-
-      let container = document.getElementById('container');
-      let globe = new DAT.Globe(container);
-
-      console.log(globe);
-      let i, tweens = [];
-
-      let settime = function(globe, t) {
-        return function() {
-          new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-          let d = document.getElementById('date'+dates[t]);
-          if (d.getAttribute('class') === 'date active') {
-            return;
-          }
-          let dd = document.getElementsByClassName('date');
-          for(i=0; i<dd.length; i++) {
-            dd[i].setAttribute('class','date');
-          }
-          d.setAttribute('class', 'date active');
-        };
-      };
-
-      for(let i = 0; i<dates.length; i++) {
-        let id_tofind = 'date'+dates[i];
-        let d = document.getElementById(id_tofind);
-        if(d) {
-          console.log("found "+id_tofind);
-          d.addEventListener('mouseover', settime(globe, i), false);
-        }else{
-          console.log("didn't found "+id_tofind)
-        }
-      }
-
-      TWEEN.start();
-
-
-      window.data = data;
-      for (i=0;i<data.length/2;i++) { //2 pour ne prendre que les cases et non pas les deaths
-        globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
-      }
-      globe.createPoints();
-      settime(globe,0)();
-      globe.animate();
-      document.body.style.backgroundImage = 'none'; // remove loading
-    }
-
-  </script>
 
   </body>
 
 </html>
+
+<script type="text/javascript">
+  function getJSONData(){
+    let data;
+    var xhr;
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', 'data.json', false);
+    xhr.onreadystatechange = function(e) {
+      console.log(xhr);
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          data = JSON.parse(xhr.responseText);
+        }
+      }
+    };
+    xhr.send(null);
+    return data;
+  }
+
+
+  if(!Detector.webgl){
+    Detector.addGetWebGLMessage();
+  } else {
+
+    let data = getJSONData();
+    let dates = [];
+    for(const d in data){
+      if(data[d][0].endsWith("c")){
+        dates.push(data[d][0]);
+      }
+    }
+
+    let container = document.getElementById('container');
+    let globe = new DAT.Globe(container);
+
+    console.log(globe);
+    let i, tweens = [];
+
+    let settime = function(globe, t) {
+      return function() {
+        new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+        let d = document.getElementById('date'+dates[t]);
+        if (d.getAttribute('class') === 'date active') {
+          return;
+        }
+        let dd = document.getElementsByClassName('date');
+        for(i=0; i<dd.length; i++) {
+          dd[i].setAttribute('class','date');
+        }
+        d.setAttribute('class', 'date active');
+      };
+    };
+
+    for(let i = 0; i<dates.length; i++) {
+      let id_tofind = 'date'+dates[i];
+      let d = document.getElementById(id_tofind);
+      if(d) {
+        console.log("found "+id_tofind);
+        d.addEventListener('mouseover', settime(globe, i), false);
+      }else{
+        console.log("didn't found "+id_tofind)
+      }
+    }
+
+    TWEEN.start();
+
+
+    window.data = data;
+    for (i=0;i<data.length/2;i++) { //2 pour ne prendre que les cases et non pas les deaths
+      globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+    }
+    globe.createPoints();
+    settime(globe,0)();
+    globe.animate();
+    document.body.style.backgroundImage = 'none'; // remove loading
+  }
+
+</script>
