@@ -104,7 +104,7 @@
                     //Binding day event
                     td.on('click', function(e) {
                         //plugin.fillUp($(plugin.element),e.pageX,e.pageY);
-                        console.log("changing date to "+td.innerHTML);
+                        console.log("changing date to "+e.innerHTML);
                     });
 
                     tr.append(td);
