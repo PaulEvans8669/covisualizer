@@ -134,8 +134,8 @@ function settime(globe, t){
                             console.log("adding listener to " + id_tofind + "(" + i + ")");
                              td.on('click', function(e) {
                                  settime(globe,i);
-                                 break;
                              });
+                            break;
                         }
                     }
 
