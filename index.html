@@ -173,9 +173,13 @@
         let settime = function(globe, t) {
           return function() {
             new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-            let d = document.getElementById('date'+dates[t]);
+            let id = 'date'+dates[t];
+            let d = document.getElementById(id);
             if(!d){
+              console.log("didn't find " + id);
               return;
+            }else{
+              console.log("found " + id);
             }
             if (d.getAttribute('class') === 'date active') {
               return;
@@ -195,8 +199,8 @@
             d.addEventListener('click', function(){
               console.log("event listener click");
               settime(globe, i);
-              $(".active").removeClass("active");
-              $(d).addClass("active");
+              $(".active").removeClass("today");
+              $(d).addClass("today");
             }, false);
           }
         }
