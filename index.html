@@ -191,9 +191,8 @@
         for(let i = 0; i<dates.length; i++) {
           let id_tofind = 'date'+dates[i];
           let d = document.getElementById(id_tofind);
-          console.log(d);
           if(d) {
-            d.addEventListener('onclick', function(){
+            d.addEventListener('click', function(){
               console.log("event listener click");
               settime(globe, i);
               $(".active").removeClass("active");
