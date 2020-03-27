@@ -211,7 +211,7 @@
           globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
         }
         globe.createPoints();
-        settime(globe,0)();
+        settime(globe,0);
         globe.animate();
         document.body.style.backgroundImage = 'none'; // remove loading
       }
