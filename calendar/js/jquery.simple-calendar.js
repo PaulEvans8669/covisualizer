@@ -25,7 +25,7 @@
         this._defaults = defaults;
         this._name = pluginName;
         this.currentDate = new Date();
-        this.currentDate.setFullYear(2020,1,22);
+        this.currentDate.setFullYear(2020,0,22);
         this.init();
     }
 
