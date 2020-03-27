@@ -12,8 +12,10 @@ function settime(globe, t){
     }
     let dd = document.getElementsByClassName('date');
     for(i=0; i<dd.length; i++) {
-        date_month = dd[i].id.replace("date","").replace("\/.*","");
+        date_month = dd[i].id.replace("date","");
+        date_month = date_month.replace("\/.*","");
         selected_month = id.replace("date","").replace("\/.*","");
+        selected_month = selected_month.replace("\/.*","");
         console.log(date_month + "=?" +selected_month);
         if(date_month === selected_month) {
             dd[i].setAttribute('class', 'date');
