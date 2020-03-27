@@ -16,7 +16,6 @@ function settime(globe, t){
         date_month = date_month.substring(0,2).replace("/","");
         selected_month = id.replace("date","").replace("\/.*","");
         selected_month = selected_month.substring(0,2).replace("/","");
-        console.log(date_month + "=?" +selected_month);
         if(date_month === selected_month) {
             dd[i].setAttribute('class', 'date');
         }else{
@@ -132,7 +131,6 @@ function settime(globe, t){
                     for(let i = 0; i<dates.length; i++) {
                         let id_tofind = 'date'+dates[i];
                         if(id_tofind === id){
-                            console.log("adding listener to " + id_tofind + "(" + i + ")");
                              td.on('click', function(e) {
                                  settime(globe,i);
                              });
