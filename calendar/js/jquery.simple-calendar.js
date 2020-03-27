@@ -3,13 +3,9 @@
 function settime(globe, t){
     new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
     let id = 'date'+dates[t];
-    console.log("settime " + id);
     let d = document.getElementById(id);
     if(!d){
-        console.log("didn't find " + id);
         return;
-    }else{
-        console.log("found " + id);
     }
     if (d.getAttribute('class') === 'date active today todate') {
         return;
