@@ -161,6 +161,7 @@
       console.log(data);
       for(const d in data){
         if(d[0].endsWith("_c")){
+          console.log("adding "+ d[0]);
           dates.push(d[0]);
         }
       }
