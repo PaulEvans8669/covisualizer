@@ -134,11 +134,11 @@
   <script type="text/javascript" src="third-party/Tween.js"></script>
   <script type="text/javascript" src="globe.js"></script>
   <script type="text/javascript">
-    function getJSONData(){
+    async function getJSONData(){
       let data;
       var xhr;
       xhr = new XMLHttpRequest();
-      xhr.open('GET', 'data.json', true);
+      await xhr.open('GET', 'data.json', true);
       xhr.onreadystatechange = function(e) {
       console.log(xhr);
         if (xhr.readyState === 4) {
@@ -164,7 +164,7 @@
           dates.push(d[0]);
         }
       }
-      console.log(dates);
+      console.log("dates : " + dates);
 
       let container = document.getElementById('container');
       let globe = new DAT.Globe(container);
