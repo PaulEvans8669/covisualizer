@@ -9,7 +9,7 @@
         defaults = {
             months: ['january','february','march','april','may','june','july','august','september','october','november','december'], //string of months starting from january
             days: ['sunday','monday','tuesday','wenesday','thursday','friday','saturday'], //string of days starting from sunday
-            minDate : "2020-01-22", // minimum date
+            minDate : "YYYY-MM-DD", // minimum date
             maxDate : "YYYY-MM-DD", // maximum date
             insertEvent: true, // can insert events
             displayEvent: true, // display existing event
@@ -91,7 +91,7 @@
                 var tr = $('<tr></tr>');
                 //For each row
                 for(var i = 0; i<7; i++) {
-                    var td = $('<td><a href="#" class="day">'+day.getDate()+'</a></td>');
+                    var td = $('<td><a href="#" class="day">'+day.getDate()+'</a></td>').attr('id', 'date'+day.getMonth()+"/"+day.getDate()+"/"+day.getFullYear().substring(2)+"_c");
                     //if today is this day
                     if(day.toDateString() === (new Date).toDateString()){
                         td.find(".day").addClass("today");
@@ -137,6 +137,44 @@
                 plugin.updateHeader(plugin.currentDate, $('.calendar header'));
             });
         },
+        //Small effect to fillup a container
+        fillUp : function (elem,x,y){
+            var plugin = this;
+            var elemOffset = elem.offset();
+
+            var filler = $('<div class="filler" style=""></div>');
+            filler.css("left", x-elemOffset.left);
+            filler.css("top", y-elemOffset.top);
+
+            $('.calendar').append(filler);
+
+            filler.animate({
+                width: "300%",
+                height: "300%"
+            }, 500, function() {
+                $('.event-container').show();
+                filler.hide();
+            });
+        },
+        //Small effect to empty a container
+        empty : function (elem,x,y){
+            var elemOffset = elem.offset();
+
+            var filler = $('.filler');
+            filler.css("width", "300%");
+            filler.css("height", "300%");
+
+            filler.show();
+
+            $('.event-container').hide();
+
+            filler.animate({
+                width: "0%",
+                height: "0%"
+            }, 500, function() {
+                filler.remove();
+            });
+        }
     });
 
     // A really lightweight plugin wrapper around the constructor,

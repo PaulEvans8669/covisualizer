@@ -157,13 +157,11 @@
 
       let data = getJSONData();
       let dates = [];
-      console.log(data);
       for(const d in data){
         if(data[d][0].endsWith("c")){
           dates.push(data[d][0]);
         }
       }
-      console.log("dates : " + dates);
 
       let container = document.getElementById('container');
       let globe = new DAT.Globe(container);
