@@ -128,9 +128,16 @@ function settime(globe, t){
                        td.find(".day").addClass("wrong-month");
                     }
                     //Binding day event
-                    td.on('click', function(e) {
-                        //plugin.fillUp($(plugin.element),e.pageX,e.pageY);
-                    });
+                    for(let i = 0; i<dates.length; i++) {
+                        let id_tofind = 'date'+dates[i];
+                        if(id_tofind === id){
+                            console.log("adding listener to " + id_tofind + "(" + i + ")");
+                             td.on('click', function(e) {
+                                 settime(globe,i);
+                                 break;
+                             });
+                        }
+                    }
 
                     tr.append(td);
                     day.setDate(day.getDate() + 1);
@@ -163,15 +170,6 @@ function settime(globe, t){
                 plugin.buildCalendar(plugin.currentDate, $('.calendar'));
                 plugin.updateHeader(plugin.currentDate, $('.calendar header'));
             });
-
-            for(let i = 0; i<dates.length; i++) {
-                let id_tofind = 'date'+dates[i];
-                let d = document.getElementById(id_tofind);
-                if(d) {
-                    console.log("adding event to " + id_tofind);
-                    d.addEventListener('click', settime(globe, i), false);
-                }
-            }
         },
         //Small effect to fillup a container
         fillUp : function (elem,x,y){
