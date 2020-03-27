@@ -124,7 +124,8 @@ function settime(globe, t){
                         td.find(".day").addClass("today");
                     }
                     //if day is not in this month
-                    if(day.getMonth() != fromDate.getMonth()){
+                    console.log(day.getMonth() + "=?" + fromDate.getMonth());
+                    if(day.getMonth() !== fromDate.getMonth()){
                        td.find(".day").addClass("wrong-month");
                     }
                     //Binding day event
