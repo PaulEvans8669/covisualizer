@@ -151,6 +151,9 @@
       return data;
     }
 
+    function onCalendarClick(day, globe, i){
+    }
+
     $(document).ready(function(){
       if(!Detector.webgl){
         Detector.addGetWebGLMessage();
@@ -191,10 +194,13 @@
         for(let i = 0; i<dates.length; i++) {
           let id_tofind = 'date'+dates[i];
           let d = document.getElementById(id_tofind);
+          console.log(d);
           if(d && !$(d).hasClass("active")) {
-            d.addEventListener('onclick', settime(globe, i), false);
-            $(".active").removeClass("active");
-            $(d).addClass("active");
+            d.addEventListener('onclick', function(){
+              settime(globe, i);
+              $(".active").removeClass("active");
+              $(d).addClass("active");
+            }, false);
           }
         }
 
