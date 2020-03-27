@@ -17,6 +17,7 @@
             event: [], //List of event
             globe: null,
             dates: null,
+            event_listener: null,
             insertCallback : function(){} // Callback when an event is added to the calendar
         };
 
@@ -147,7 +148,7 @@
                 let d = document.getElementById(id_tofind);
                 if(d) {
                     console.log("adding event to " + id_tofind);
-                    d.addEventListener('click', settime(globe, i), false);
+                    d.addEventListener('click', this.event_listener(globe, i), false);
                 }
             }
         },
