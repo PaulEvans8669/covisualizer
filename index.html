@@ -165,14 +165,14 @@
       }else{
         console.log("found " + id);
       }
-      if (d.getAttribute('class') === 'date active today') {
+      if (d.getAttribute('class') === 'date active today todate') {
         return;
       }
       let dd = document.getElementsByClassName('date');
       for(i=0; i<dd.length; i++) {
         dd[i].setAttribute('class','date');
       }
-      d.setAttribute('class', 'date active today');
+      d.setAttribute('class', 'date active today todate');
     }
 
     $(document).ready(function(){
