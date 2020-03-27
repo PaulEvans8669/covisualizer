@@ -185,8 +185,14 @@
       };
 
       for(let i = 0; i<dates.length; i++) {
-        let d = document.getElementById('date'+dates[i]);
-        d.addEventListener('mouseover', settime(globe,i), false);
+        let id_tofind = 'date'+dates[i];
+        let d = document.getElementById(id_tofind);
+        if(d) {
+          console.log("found "+id_tofind);
+          d.addEventListener('mouseover', settime(globe, i), false);
+        }else{
+          console.log("didn't found "+id_tofind)
+        }
       }
 
       TWEEN.start();
