@@ -134,6 +134,9 @@
   <script type="text/javascript" src="third-party/Tween.js"></script>
   <script type="text/javascript" src="globe.js"></script>
   <script type="text/javascript">
+
+    let dates = [];
+
     function getJSONData(){
       let data;
       var xhr;
@@ -151,13 +154,33 @@
       return data;
     }
 
+    function settime(globe, t){
+      console.log("settime");
+      new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+      let id = 'date'+dates[t];
+      let d = document.getElementById(id);
+      if(!d){
+        console.log("didn't find " + id);
+        return;
+      }else{
+        console.log("found " + id);
+      }
+      if (d.getAttribute('class') === 'date active today') {
+        return;
+      }
+      let dd = document.getElementsByClassName('date');
+      for(i=0; i<dd.length; i++) {
+        dd[i].setAttribute('class','date');
+      }
+      d.setAttribute('class', 'date active today');
+    }
+
     $(document).ready(function(){
       if(!Detector.webgl){
         Detector.addGetWebGLMessage();
       } else {
 
         let data = getJSONData();
-        let dates = [];
         for(const d in data){
           if(data[d][0].endsWith("c")){
             dates.push(data[d][0]);
@@ -170,37 +193,12 @@
         console.log(globe);
         let i, tweens = [];
 
-        let settime = function(globe, t) {
-          return function() {
-            new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-            let id = 'date'+dates[t];
-            let d = document.getElementById(id);
-            if(!d){
-              console.log("didn't find " + id);
-              return;
-            }else{
-              console.log("found " + id);
-            }
-            if (d.getAttribute('class') === 'date active') {
-              return;
-            }
-            let dd = document.getElementsByClassName('date');
-            for(i=0; i<dd.length; i++) {
-              dd[i].setAttribute('class','date');
-            }
-            d.setAttribute('class', 'date active');
-          };
-        };
-
         for(let i = 0; i<dates.length; i++) {
           let id_tofind = 'date'+dates[i];
           let d = document.getElementById(id_tofind);
           if(d) {
             d.addEventListener('click', function(){
-              console.log("event listener click");
               settime(globe, i);
-              $(".active").removeClass("today");
-              $(d).addClass("today");
             }, false);
           }
         }
