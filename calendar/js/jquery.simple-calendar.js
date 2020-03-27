@@ -91,7 +91,7 @@
                 var tr = $('<tr></tr>');
                 //For each row
                 for(var i = 0; i<7; i++) {
-                    let id = "date"+day.getMonth()+"/"+day.getDate()+"/"+day.getFullYear()%100+"_c";
+                    let id = "date"+(day.getMonth()+1)+"/"+day.getDate()+"/"+day.getFullYear()%100+"_c";
                     var td = $('<td><a href="#" class="day" id="'+id+'">'+day.getDate()+'</a></td>');
                     //if today is this day
                     if(day.toDateString() === (new Date).toDateString()){
