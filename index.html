@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <title>WebGL Globe</title>
+    <title>Covid-19 Visualizer</title>
     <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="calendar/css/simple-calendar.css">
     <style type="text/css">
       html {
         height: 100%;
@@ -110,78 +112,97 @@
   </div>
 
   <div id="currentInfo">
-    <span id="year1990" class="year">1990</span>
-    <span id="year1995" class="year">1995</span>
-    <span id="year2000" class="year">2000</span>
+    <div id="cal-container" class="calendar-container"></div>
   </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="calendar/js/jquery.simple-calendar.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#cal-container").simpleCalendar({
+        fixedStartDay: true
+      });
+    });
+  </script>
 
   <div id="title">
-    World Population
+    Covid-19 Visualizer
   </div>
-
-  <a id="ce" href="http://www.chromeexperiments.com/globe">
-    <span>This is a Chrome Experiment</span>
-  </a>
 
   <script type="text/javascript" src="third-party/Detector.js"></script>
   <script type="text/javascript" src="third-party/three.min.js"></script>
   <script type="text/javascript" src="third-party/Tween.js"></script>
   <script type="text/javascript" src="globe.js"></script>
   <script type="text/javascript">
+    function getJSONData(){
+      let data;
+      var xhr;
+      xhr = new XMLHttpRequest();
+      xhr.open('GET', 'data.json', true);
+      xhr.onreadystatechange = function(e) {
+      console.log(xhr);
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+              data = JSON.parse(xhr.responseText);
+              console.log(data);
+              return data;
+          }
+        }
+      };
+      xhr.send(null);
+    }
 
     if(!Detector.webgl){
       Detector.addGetWebGLMessage();
     } else {
 
-      var years = ['1990','1995','2000'];
-      var container = document.getElementById('container');
-      var globe = new DAT.Globe(container);
+      let data = getJSONData();
+      let dates = [];
+      console.log(data);
+      for(const d in data){
+        if(d[0].endsWith("_c")){
+          dates.push(d[0]);
+        }
+      }
+      console.log(dates);
+
+      let container = document.getElementById('container');
+      let globe = new DAT.Globe(container);
 
       console.log(globe);
-      var i, tweens = [];
+      let i, tweens = [];
 
-      var settime = function(globe, t) {
+      let settime = function(globe, t) {
         return function() {
-          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-          var y = document.getElementById('year'+years[t]);
-          if (y.getAttribute('class') === 'year active') {
+          new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+          let d = document.getElementById('date'+dates[t]);
+          if (d.getAttribute('class') === 'date active') {
             return;
           }
-          var yy = document.getElementsByClassName('year');
-          for(i=0; i<yy.length; i++) {
-            yy[i].setAttribute('class','year');
+          let dd = document.getElementsByClassName('date');
+          for(i=0; i<dd.length; i++) {
+            dd[i].setAttribute('class','date');
           }
-          y.setAttribute('class', 'year active');
+          d.setAttribute('class', 'date active');
         };
       };
 
-      for(var i = 0; i<years.length; i++) {
-        var y = document.getElementById('year'+years[i]);
-        y.addEventListener('mouseover', settime(globe,i), false);
+      for(let i = 0; i<dates.length; i++) {
+        let d = document.getElementById('date'+dates[i]);
+        d.addEventListener('mouseover', settime(globe,i), false);
       }
 
-      var xhr;
       TWEEN.start();
 
 
-      xhr = new XMLHttpRequest();
-      xhr.open('GET', 'population909500.json', true);
-      xhr.onreadystatechange = function(e) {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            window.data = data;
-            for (i=0;i<data.length;i++) {
-              globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
-            }
-            globe.createPoints();
-            settime(globe,0)();
-            globe.animate();
-            document.body.style.backgroundImage = 'none'; // remove loading
-          }
-        }
-      };
-      xhr.send(null);
+      window.data = data;
+      for (i=0;i<data.length/2;i++) { //2 pour ne prendre que les cases et non pas les deaths
+        globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+      }
+      globe.createPoints();
+      settime(globe,0)();
+      globe.animate();
+      document.body.style.backgroundImage = 'none'; // remove loading
     }
 
   </script>
