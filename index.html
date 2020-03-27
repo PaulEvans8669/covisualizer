@@ -136,6 +136,7 @@
   <script type="text/javascript">
 
     let dates = [];
+    let globe;
 
     function getJSONData(){
       let data;
@@ -188,7 +189,7 @@
         }
 
         let container = document.getElementById('container');
-        let globe = new DAT.Globe(container);
+        globe = new DAT.Globe(container);
 
         console.log(globe);
         let i, tweens = [];
