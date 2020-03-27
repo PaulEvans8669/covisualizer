@@ -39,21 +39,21 @@
     font-weight: 600; }
   .calendar td {
     padding: 0.8em 0.1em; }
-  .calendar .day {
+  .calendar .date {
     display: inline-block;
     width: 2em;
     height: 2em;
     line-height: 1.9em;
     border-radius: 50%;
     border: 2px solid transparent; }
-  .calendar .day:hover {
+  .calendar .date:hover {
     border: 2px solid #6691CC; }
-  .calendar .day.today {
+  .calendar .date.todate {
     background: #6691CC;
     color: white; }
-  .calendar .day.wrong-month {
+  .calendar .date.wrong-month {
     color: #696f70; }
-  .calendar .day.wrong-month:hover {
+  .calendar .date.wrong-month:hover {
     border: 2px solid transparent; }
   .calendar .event-container {
     display: none;
