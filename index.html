@@ -160,7 +160,8 @@
       let dates = [];
       console.log(data);
       for(const d in data){
-        if(d[0].endsWith("_c")){
+        console.log("testing " + d[0]);
+        if(d[0].endsWith("c")){
           console.log("adding "+ d[0]);
           dates.push(d[0]);
         }
