@@ -92,18 +92,6 @@ function settime(globe, t){
             header.find('.month').html(this.settings.months[date.getMonth()]);
         },
 
-        prev_month: function(){
-            plugin.currentDate.setMonth(plugin.currentDate.getMonth()-1);
-            plugin.buildCalendar(plugin.currentDate, $('.calendar'));
-            plugin.updateHeader(plugin.currentDate, $('.calendar header'));
-        },
-
-        next_month: function(){
-            plugin.currentDate.setMonth(plugin.currentDate.getMonth()+1);
-            plugin.buildCalendar(plugin.currentDate, $('.calendar'));
-            plugin.updateHeader(plugin.currentDate, $('.calendar header'));
-        },
-
         //Build calendar of a month from date
         buildCalendar: function (fromDate, calendar) {
             var plugin = this;
@@ -154,11 +142,18 @@ function settime(globe, t){
                         td.find(".date").addClass("na");
                     }
                     //Binding day event
+                    let cur_month = cust_currdate.match("\/(.*)\/")[0];
                     for(let i = 0; i<dates.length; i++) {
                         let id_tofind = 'date'+dates[i];
+                        let i_month = dates[i].match("\/(.*)\/")[0];
+                        if(cur_month === "1" && i_month === "12" || cur_month < i_month){
+                            $(td).addClass("btn-prev");
+                        }else{
+                            $(td).addClass("btn-next");
+                        }
                         if(id_tofind === id){
-                             td.on('click', function(e) {
-                                 cust_currdate = dates[i];
+                            td.on('click', function(e) {
+                               cust_currdate = dates[i];
                                  settime(globe,i);
                              });
                             break;
@@ -185,12 +180,16 @@ function settime(globe, t){
 
             //Click previous month
             $('.btn-prev').click(function(){
-                this.prev_month();
+                plugin.currentDate.setMonth(plugin.currentDate.getMonth()-1);
+                plugin.buildCalendar(plugin.currentDate, $('.calendar'));
+                plugin.updateHeader(plugin.currentDate, $('.calendar header'));
             });
 
             //Click next month
             $('.btn-next').click(function(){
-                this.next_month()
+                plugin.currentDate.setMonth(plugin.currentDate.getMonth()+1);
+                plugin.buildCalendar(plugin.currentDate, $('.calendar'));
+                plugin.updateHeader(plugin.currentDate, $('.calendar header'));
             });
         },
         //Small effect to fillup a container
