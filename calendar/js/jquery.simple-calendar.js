@@ -146,11 +146,6 @@ function settime(globe, t){
                     for(let i = 0; i<dates.length; i++) {
                         let id_tofind = 'date'+dates[i];
                         let i_month = dates[i].match("\/(.*)\/")[0];
-                        if(cur_month === "1" && i_month === "12" || cur_month < i_month){
-                            $(td).addClass("btn-prev");
-                        }else{
-                            $(td).addClass("btn-next");
-                        }
                         if(id_tofind === id){
                             td.on('click', function(e) {
                                cust_currdate = dates[i];
