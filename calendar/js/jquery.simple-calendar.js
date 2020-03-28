@@ -57,7 +57,7 @@ function settime(globe, t){
         this._name = pluginName;
         this.currentDate = new Date();
         this.currentDate.setFullYear(2020,0,22);
-        this.cust_currdate = null;
+        this.cust_currdate = "1/22/20_c";
         this.init();
         return this;
     }
@@ -144,7 +144,7 @@ function settime(globe, t){
                         let id_tofind = 'date'+dates[i];
                         if(id_tofind === id){
                              td.on('click', function(e) {
-                                 this.cust_currdate = dates[t];
+                                 this.cust_currdate = dates[i];
                                  settime(globe,i);
                              });
                             break;
