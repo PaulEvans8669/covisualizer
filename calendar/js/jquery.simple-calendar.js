@@ -92,6 +92,18 @@ function settime(globe, t){
             header.find('.month').html(this.settings.months[date.getMonth()]);
         },
 
+        prev_month: function(){
+            plugin.currentDate.setMonth(plugin.currentDate.getMonth()-1);
+            plugin.buildCalendar(plugin.currentDate, $('.calendar'));
+            plugin.updateHeader(plugin.currentDate, $('.calendar header'));
+        },
+
+        next_month: function(){
+            plugin.currentDate.setMonth(plugin.currentDate.getMonth()+1);
+            plugin.buildCalendar(plugin.currentDate, $('.calendar'));
+            plugin.updateHeader(plugin.currentDate, $('.calendar header'));
+        },
+
         //Build calendar of a month from date
         buildCalendar: function (fromDate, calendar) {
             var plugin = this;
@@ -132,7 +144,6 @@ function settime(globe, t){
                     let id = "date"+date;
                     var td = $('<td><a href="#" class="date" id="'+id+'">'+day.getDate()+'</a></td>');
                     //if today is this day
-                    console.log(cust_currdate + "===?" + date + " " + (cust_currdate === date).toString());
                     if(cust_currdate === date){
                         td.find(".date").addClass("active today todate");
                     }
@@ -143,10 +154,17 @@ function settime(globe, t){
                         td.find(".date").addClass("na");
                     }
                     //Binding day event
+                    let cur_month = cust_currdate.match("\/(.*)\/")[0];
                     for(let i = 0; i<dates.length; i++) {
                         let id_tofind = 'date'+dates[i];
+                        let i_month = dates[i].match("\/(.*)\/")[0];
                         if(id_tofind === id){
                              td.on('click', function(e) {
+                                 if(cur_month === "1" && i_month === "12" || cur_month < i_month){
+                                     this.prev_month()
+                                 }else{
+                                     this.next_month();
+                                 }
                                  cust_currdate = dates[i];
                                  settime(globe,i);
                              });
@@ -174,16 +192,12 @@ function settime(globe, t){
 
             //Click previous month
             $('.btn-prev').click(function(){
-                plugin.currentDate.setMonth(plugin.currentDate.getMonth()-1);
-                plugin.buildCalendar(plugin.currentDate, $('.calendar'));
-                plugin.updateHeader(plugin.currentDate, $('.calendar header'));
+                this.prev_month();
             });
 
             //Click next month
             $('.btn-next').click(function(){
-                plugin.currentDate.setMonth(plugin.currentDate.getMonth()+1);
-                plugin.buildCalendar(plugin.currentDate, $('.calendar'));
-                plugin.updateHeader(plugin.currentDate, $('.calendar header'));
+                this.next_month()
             });
         },
         //Small effect to fillup a container
