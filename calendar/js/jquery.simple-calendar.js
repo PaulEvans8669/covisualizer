@@ -154,17 +154,10 @@ function settime(globe, t){
                         td.find(".date").addClass("na");
                     }
                     //Binding day event
-                    let cur_month = cust_currdate.match("\/(.*)\/")[0];
                     for(let i = 0; i<dates.length; i++) {
                         let id_tofind = 'date'+dates[i];
-                        let i_month = dates[i].match("\/(.*)\/")[0];
                         if(id_tofind === id){
                              td.on('click', function(e) {
-                                 if(cur_month === "1" && i_month === "12" || cur_month < i_month){
-                                     this.prev_month()
-                                 }else{
-                                     this.next_month();
-                                 }
                                  cust_currdate = dates[i];
                                  settime(globe,i);
                              });
