@@ -1,6 +1,10 @@
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
+
+
+let cust_currdate = "1/22/20_c";
 function settime(globe, t){
+    cust_currdate = dates[t];
     new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
     let id = 'date'+dates[t];
     let d = document.getElementById(id);
@@ -57,7 +61,6 @@ function settime(globe, t){
         this._name = pluginName;
         this.currentDate = new Date();
         this.currentDate.setFullYear(2020,0,22);
-        this.cust_currdate = "1/22/20_c";
         this.init();
         return this;
     }
@@ -129,8 +132,8 @@ function settime(globe, t){
                     let id = "date"+date;
                     var td = $('<td><a href="#" class="date" id="'+id+'">'+day.getDate()+'</a></td>');
                     //if today is this day
-                    console.log(this.cust_currdate + "===?" + date);
-                    if(this.cust_currdate === date){
+                    console.log(cust_currdate + "===?" + date);
+                    if(cust_currdate === date){
                         td.find(".day").addClass("date active today todate");
                     }
                     if(day.getMonth() !== fromDate.getMonth()){
@@ -144,7 +147,7 @@ function settime(globe, t){
                         let id_tofind = 'date'+dates[i];
                         if(id_tofind === id){
                              td.on('click', function(e) {
-                                 this.cust_currdate = dates[i];
+                                 cust_currdate = dates[i];
                                  settime(globe,i);
                              });
                             break;
