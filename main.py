@@ -110,17 +110,22 @@ for type in ['c','d']:
     for date in dates:
         series = [date+"_"+type]
         s_data = []
+        add = False
         for c in countries:
             s_data.append(round(c.lat))
             s_data.append(round(c.lon))
             if type is 'c':
-                s_data.append(round(c.cases[date]/Country.maxCases,3))
+                val = round(c.cases[date]/Country.maxCases,3)
             else:
-                s_data.append(round(c.deaths[date]/Country.maxDeaths,3))
+                val = round(c.deaths[date]/Country.maxDeaths,3)
+            s_data.append(val)
         series.append(s_data)
         globe_data.append(series)
 
+
 json_globe_data = json.dumps(globe_data)
+json_globe_data = json_globe_data.replace("-0.0,","0.000,")
+json_globe_data = json_globe_data.replace("0.0,","0.000,")
 
 data_file = "data.json"
 jsonFile = open(data_file, "w")
