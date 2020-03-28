@@ -53,6 +53,8 @@
     color: white; }
   .calendar .date.wrong-month {
     color: #696f70; }
+  .calendar .date.na {
+    color: #800000; }
   .calendar .date.wrong-month:hover {
     border: 2px solid transparent; }
   .calendar .event-container {

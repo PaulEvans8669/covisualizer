@@ -121,11 +121,15 @@ function settime(globe, t){
                 var tr = $('<tr></tr>');
                 //For each row
                 for(var i = 0; i<7; i++) {
-                    let id = "date"+(day.getMonth()+1)+"/"+day.getDate()+"/"+day.getFullYear()%100+"_c";
+                    let date = (day.getMonth()+1)+"/"+day.getDate()+"/"+day.getFullYear()%100+"_c";
+                    let id = "date"+date;
                     var td = $('<td><a href="#" class="date" id="'+id+'">'+day.getDate()+'</a></td>');
                     //if today is this day
                     if(day.getMonth() !== fromDate.getMonth()){
                        td.find(".date").addClass("wrong-month");
+                    }
+                    if(!dates.includes(date)){
+                        td.find(".date").addClass("na");
                     }
                     //Binding day event
                     for(let i = 0; i<dates.length; i++) {
