@@ -134,7 +134,7 @@ function settime(globe, t){
                     //if today is this day
                     console.log(cust_currdate + "===?" + date + " " + (cust_currdate === date).toString());
                     if(cust_currdate === date){
-                        td.find(".day").addClass("date active today todate");
+                        td.find(".date").addClass('class', "active today todate");
                     }
                     if(day.getMonth() !== fromDate.getMonth()){
                        td.find(".date").addClass("wrong-month");
