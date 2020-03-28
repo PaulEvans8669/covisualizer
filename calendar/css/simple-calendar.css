@@ -52,7 +52,7 @@
     background: #6691CC;
     color: white; }
   .calendar .date.wrong-month {
-    color: #696f70; }
+    color: #696f70 !important; }
   .calendar .date.na {
     color: #800000; }
   .calendar .date.wrong-month:hover {
