@@ -130,6 +130,7 @@ function settime(globe, t){
                     let id = "date"+date;
                     var td = $('<td><a href="#" class="date" id="'+id+'">'+day.getDate()+'</a></td>');
                     //if today is this day
+                    console.log(this.custom_date + "===?" + date);
                     if(this.custom_date === date){
                         td.find(".day").addClass("date active today todate");
                     }
