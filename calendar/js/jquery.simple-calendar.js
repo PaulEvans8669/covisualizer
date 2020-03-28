@@ -12,14 +12,19 @@ function settime(globe, t){
     }
     let dd = document.getElementsByClassName('date');
     for(i=0; i<dd.length; i++) {
-        date_month = dd[i].id.replace("date","");
-        date_month = date_month.substring(0,2).replace("/","");
+        raw_date = dd[i].id.replace("date","");
+        date_month = raw_date.substring(0,2).replace("/","");
         selected_month = id.replace("date","").replace("\/.*","");
         selected_month = selected_month.substring(0,2).replace("/","");
         if(date_month === selected_month) {
             dd[i].setAttribute('class', 'date');
         }else{
-            dd[i].setAttribute('class', 'date wrong-month');
+            console.log(raw_date);
+            if(!dates.includes(raw_date)){
+                dd[i].setAttribute('class', 'date wrong-month na');
+            }else{
+                dd[i].setAttribute('class', 'date wrong-month');
+            }
         }
     }
     d.setAttribute('class', 'date active today todate');
