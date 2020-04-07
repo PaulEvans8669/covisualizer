@@ -60,7 +60,7 @@ function settime(globe, t){
         this._defaults = defaults;
         this._name = pluginName;
         this.currentDate = new Date();
-        this.currentDate.setFullYear(2020,0,22);
+        this.currentDate.setFullYear(2020,2,8);
         this.init();
         return this;
     }
