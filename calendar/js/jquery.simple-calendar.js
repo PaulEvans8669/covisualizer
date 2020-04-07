@@ -2,7 +2,7 @@
 // scripts and/or other plugins which may not be closed properly.
 
 
-let cust_currdate = "1/22/20_c";
+let cust_currdate = "3/08/20_c";
 function settime(globe, t){
     cust_currdate = dates[t];
     new TWEEN.Tween(globe).to({time: t/dates.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
